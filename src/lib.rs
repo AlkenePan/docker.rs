@@ -17,7 +17,7 @@ extern crate uuid;
 pub mod api;
 pub mod client;
 pub mod errors;
-pub mod file;
+// pub mod file;
 pub mod utils;
 
 pub use client::DockerClient;

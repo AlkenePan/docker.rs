@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+
 use std::collections::HashMap;
 
 use api::DockerApiClient;
@@ -26,12 +27,29 @@ pub struct Container {
     pub SizeRootFs: u64,
     pub HostConfig: HostConfig,
     pub Mounts: Vec<Mounts>,
+
+    pub NetworkSettings: Option<NetworkSetting>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct NetworkSetting {
+    pub Networks: NetWorkMods
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct NetWorkMods {
+    pub bridge: Option<Bridge>
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Bridge {
+
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Port {
-    pub PrivatePort: u32,
-    pub PublicPort: u32,
+    pub PrivatePort: Option<u32>,
+    pub PublicPort: Option<u32>,
     pub Type: String,
 }
 
@@ -151,12 +169,12 @@ pub trait Containers: DockerApiClient {
                 }
                 Err(err) => return Err(err),
             };
-
+        println!("Containers: {}", json_resp);
         let containers: Vec<Container> = match serde_json::from_str(&json_resp)
         {
             Ok(info) => info,
             Err(err) => {
-                return Err(DockerApiError::JsonDeserializationError(err))
+                return Err(DockerApiError::JsonDeserializationError(err));
             }
         };
 
