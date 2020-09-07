@@ -43,7 +43,19 @@ pub struct NetWorkMods {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Bridge {
-
+    IPAMConfig: Option<String>,
+    Links: Option<String>,
+    Aliases: Option<String>,
+    NetworkID: String,
+    EndpointID: String,
+    Gateway: String,
+    IPAddress: String,
+    IPPrefixLen: u32,
+    IPv6Gateway: String,
+    GlobalIPv6Address: String,
+    GlobalIPv6PrefixLen: u32,
+    MacAddress: String,
+    DriverOpts: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
