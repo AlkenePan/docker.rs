@@ -149,6 +149,14 @@ pub struct ContainerDetails {
     pub ExecIDs: Option<String>,
     pub HostConfig: serde_json::Value,
     pub Config: ContainerConfig,
+    pub GraphDriver: GraphDriver,
+}
+
+
+#[derive(Serialize, Deserialize, Debug, Default)]
+pub struct GraphDriver {
+    pub Name: String,
+    pub Data: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]

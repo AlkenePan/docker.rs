@@ -60,6 +60,7 @@ fn test_container_detail() {
     let id = running_conts[0].Id.clone();
     let detail = client.inspect_container(id.as_str()).unwrap();
     println!("{:?}", detail);
+    println!("GraphDriver: {:?}", detail.GraphDriver);
 }
 // #[test]
 // fn test_error_when_image_does_not_exist_locally() {
