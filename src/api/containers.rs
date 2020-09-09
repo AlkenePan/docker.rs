@@ -393,7 +393,7 @@ pub trait Containers: DockerApiClient {
                 resp.body,
             ));
         }
-        println!("{}", resp.body.clone());
+        // println!("{}", resp.body.clone());
         match serde_json::from_str(&resp.body) {
             Ok(info) => Ok(info),
             Err(err) => Err(DockerApiError::JsonDeserializationError(err)),
