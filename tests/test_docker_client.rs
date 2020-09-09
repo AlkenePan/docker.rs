@@ -47,6 +47,20 @@ fn test_list_running_containers() {
     println!("{:?}", running_conts);
 }
 
+#[test]
+fn test_container_detail() {
+    let client = match DockerClient::new("unix:///var/run/docker.sock") {
+        Ok(a) => a,
+        Err(e) => {
+            println!("{}", e);
+            exit(1);
+        }
+    };
+    let running_conts = client.list_running_containers(None).unwrap();
+    let id = running_conts[0].Id.clone();
+    let detail = client.inspect_container(id.as_str()).unwrap();
+    println!("{:?}", detail);
+}
 // #[test]
 // fn test_error_when_image_does_not_exist_locally() {
 //     if let Ok(client) = DockerClient::new("unix:///var/run/docker.sock") {

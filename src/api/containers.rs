@@ -101,7 +101,7 @@ pub struct ContainerConfig {
     pub OpenStdin: bool,
     pub StdinOnce: bool,
     pub Env: Vec<String>,
-    pub Entrypoint: Option<String>,
+    pub Entrypoint: Option<Vec<String>>,
     pub Labels: Option<HashMap<String, String>>,
     pub WorkingDir: String,
 }
@@ -181,7 +181,7 @@ pub trait Containers: DockerApiClient {
                 }
                 Err(err) => return Err(err),
             };
-        println!("Containers: {}", json_resp);
+        // println!("Containers: {}", json_resp);
         let containers: Vec<Container> = match serde_json::from_str(&json_resp)
         {
             Ok(info) => info,
@@ -266,7 +266,6 @@ pub trait Containers: DockerApiClient {
             ),
             None => format!("?all=true&size=true&filter={}", filter),
         };
-
         self.get_containers(api_endpoint, method, &query_params)
     }
 
@@ -386,7 +385,7 @@ pub trait Containers: DockerApiClient {
                 resp.body,
             ));
         }
-
+        println!("{}", resp.body.clone());
         match serde_json::from_str(&resp.body) {
             Ok(info) => Ok(info),
             Err(err) => Err(DockerApiError::JsonDeserializationError(err)),
