@@ -89,7 +89,7 @@ pub struct Mounts {
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct ContainerConfig {
     pub Image: String,
-    pub Cmd: Vec<String>,
+    pub Cmd: Option<Vec<String>>,
 
     pub Hostname: String,
     pub Domainname: String,
@@ -346,7 +346,7 @@ pub trait Containers: DockerApiClient {
     ) -> Result<CreateContainerResponse, DockerApiError> {
         let config = ContainerConfig {
             Image: image.to_string(),
-            Cmd: cmd,
+            Cmd: Some(cmd),
             ..Default::default()
         };
 
