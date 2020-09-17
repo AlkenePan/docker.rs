@@ -146,7 +146,7 @@ pub struct ContainerDetails {
     pub MountLabel: String,
     pub ProcessLabel: String,
     pub AppArmorProfile: String,
-    pub ExecIDs: Option<String>,
+    pub ExecIDs: Option<Vec<String>>,
     pub HostConfig: serde_json::Value,
     pub Config: ContainerConfig,
     pub GraphDriver: GraphDriver,
@@ -393,7 +393,7 @@ pub trait Containers: DockerApiClient {
                 resp.body,
             ));
         }
-        // println!("{}", resp.body.clone());
+        println!("{}", resp.body.clone());
         match serde_json::from_str(&resp.body) {
             Ok(info) => Ok(info),
             Err(err) => Err(DockerApiError::JsonDeserializationError(err)),
